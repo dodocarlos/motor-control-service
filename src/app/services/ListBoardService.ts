@@ -1,9 +1,9 @@
 import Board from '@schemas/Board';
 
-class BoardService {
+class ListBoardService {
   async execute() {
     return Board.scan().exec();
   }
 }
 
-export default new BoardService();
+export default new ListBoardService();

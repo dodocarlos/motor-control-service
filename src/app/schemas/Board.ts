@@ -10,6 +10,8 @@ const schema = new dynamoose.Schema(
       type: String,
       required: true,
     },
+    connection_id: String,
+    callback_url: String,
   },
   {
     timestamps: {

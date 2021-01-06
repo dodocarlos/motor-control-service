@@ -14,7 +14,7 @@ const serverlessConfiguration: AWS = {
       includeModules: true,
     },
     localstack: {
-      stages: ['local'],
+      stages: ['local', 'dev'],
       host: 'http://localhost',
       edgePort: 4566,
       autostart: true,

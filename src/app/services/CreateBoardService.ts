@@ -6,7 +6,7 @@ interface IBoardCreate {
   name: String;
 }
 
-class BoardService {
+class CreateBoardService {
   async execute({ name }: IBoardCreate) {
     return Board.update({
       board_id: uuid(),
@@ -15,4 +15,4 @@ class BoardService {
   }
 }
 
-export default new BoardService();
+export default new CreateBoardService();
