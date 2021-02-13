@@ -14,7 +14,7 @@ const schema = new dynamoose.Schema(
       type: String,
       required: true,
     },
-    schedules: Object,
+    schedules: Array,
   },
   {
     timestamps: {

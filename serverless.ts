@@ -13,19 +13,9 @@ const serverlessConfiguration: AWS = {
       webpackConfig: './webpack.config.js',
       includeModules: true,
     },
-    localstack: {
-      stages: ['local', 'dev'],
-      host: 'http://localhost',
-      edgePort: 4566,
-      autostart: true,
-      lambda: {
-        mountCode: true,
-      },
-    },
   },
   plugins: [
     'serverless-webpack',
-    'serverless-localstack',
     'serverless-offline',
     'serverless-dotenv-plugin',
   ],
@@ -36,7 +26,12 @@ const serverlessConfiguration: AWS = {
     stage: "${env:STAGE, 'dev'}",
     memorySize: 128,
     logRetentionInDays: 3,
-    apiKeys: ['TT0cjlXp1EqFhCqZGFv1VofETiY4lSnpm8Sxa0GSWFoM04Ud'],
+    apiKeys: [
+      {
+        name: 'Chave de API',
+        value: 'TT0cjlXp1EqFhCqZGFv1VofETiY4lSnpm8Sxa0GSWFoM04Ud',
+      },
+    ],
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
@@ -61,6 +56,20 @@ const serverlessConfiguration: AWS = {
           http: {
             method: 'post',
             path: 'boards/create',
+            private: true,
+          },
+        },
+        {
+          http: {
+            method: 'get',
+            path: 'motors/list',
+            private: true,
+          },
+        },
+        {
+          http: {
+            method: 'post',
+            path: 'motors/create',
             private: true,
           },
         },
@@ -112,6 +121,21 @@ const serverlessConfiguration: AWS = {
                     ],
                     Resource:
                       'arn:aws:dynamodb:${self:provider.region}:*:table/Boards',
+                  },
+                  {
+                    Effect: 'Allow',
+                    Action: [
+                      'dynamodb:GetItem',
+                      'dynamodb:PutItem',
+                      'dynamodb:Scan',
+                      'dynamodb:UpdateItem',
+                      'dynamodb:CreateTable',
+                      'dynamodb:DescribeTable',
+                      'dynamodb:DeleteItem',
+                      'dynamodb:Query',
+                    ],
+                    Resource:
+                      'arn:aws:dynamodb:${self:provider.region}:*:table/Motors',
                   },
                   {
                     Effect: 'Allow',
